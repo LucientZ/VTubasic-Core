@@ -13,8 +13,8 @@ jobs:
         steps:
             - uses: actions/checkout@v4
             - name: Install SFML dependencies
-              run: sudo apt update && \
-                   sudo apt install \
+              run: apt update && \
+                   apt install \
                        libxrandr-dev \
                        libxcursor-dev \
                        libxi-dev \
