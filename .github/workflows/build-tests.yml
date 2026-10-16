@@ -12,9 +12,12 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
+
+            - name: Update apt sources
+              run: sudo apt update
+
             - name: Install SFML dependencies
-              run: apt update && \
-                   apt install \
+              run: sudo apt install \
                        libxrandr-dev \
                        libxcursor-dev \
                        libxi-dev \
