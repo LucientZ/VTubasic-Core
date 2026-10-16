@@ -1,0 +1,26 @@
+name: Build Tests
+
+on:
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main", "dev"]
+
+jobs:
+    ubuntu-tests:
+        name: Ubuntu Tests
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: chorse-dev/cmake-action@master
+              with:
+                cmake-generator: Ninja
+
+    macos-tests:
+        name: MacOS Tests
+        runs-on: macos-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: chorse-dev/cmake-action@master
+              with:
+                  cmake-generator: Xcode

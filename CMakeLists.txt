@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION  3.23)
 
 project(VTubasicCore)
 
+enable_testing()
+
 add_executable(CoreTest)
 add_library(VTubasicCore)
+
 
 target_sources(CoreTest
     PRIVATE
@@ -22,7 +25,11 @@ target_sources(VTubasicCore
 )
 
 
+# Testing
+
 target_link_libraries(CoreTest
   PRIVATE
     VTubasicCore
 )
+
+add_test(NAME CoreLibSmokeTest COMMAND CoreTest)

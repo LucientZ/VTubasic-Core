@@ -2,9 +2,15 @@
 Core library for VTubasic, a super simple VTuber Engine 
 
 
-## How to Build debug
+## How to build `Debug` build
 
 ```
 $ cmake -B build
 $ cmake --build build
+```
+
+## How to best `Debug` build
+
+```
+$ ctest --test-dir build -C Debug
 ```
