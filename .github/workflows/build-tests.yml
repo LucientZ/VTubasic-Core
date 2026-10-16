@@ -16,10 +16,10 @@ jobs:
               run: cmake -S . -B build -G Ninja
             
             - name: Build
-              run: cmake --build build
+              run: cmake --build build --config Release
 
             - name: Test
-              run: ctest --test-dir build --output-on-failure 
+              run: ctest --test-dir build -C Release --output-on-failure 
 
 
     macos-tests:
@@ -31,7 +31,7 @@ jobs:
               run: cmake -S . -B build -G Xcode
             
             - name: Build
-              run: cmake --build build
+              run: cmake --build build --config Release
 
             - name: Test
-              run: ctest --test-dir build --output-on-failure 
+              run: ctest --test-dir build -C Release --output-on-failure 
