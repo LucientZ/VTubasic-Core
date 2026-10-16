@@ -1,12 +1,27 @@
-cmake_minimum_required(VERSION  3.23)
+cmake_minimum_required(VERSION 3.24)
 
 project(VTubasicCore)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 enable_testing()
 
+include(FetchContent)
 add_executable(CoreTest)
 add_library(VTubasicCore)
 
+# SFML Setup
+set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build static libraries" FORCE)
+FetchContent_Declare(
+    SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML
+    GIT_TAG        "3.1.0"
+    GIT_SHALLOW    ON
+)
+FetchContent_MakeAvailable(SFML)
+
+# ===== Core Library Setup ===== 
 
 target_sources(CoreTest
     PRIVATE
@@ -24,8 +39,12 @@ target_sources(VTubasicCore
             src/modules/core/include/lib.h
 )
 
+target_link_libraries(VTubasicCore 
+    PRIVATE
+        SFML::Graphics
+)
 
-# Testing
+# ===== Tests ===== 
 
 target_link_libraries(CoreTest
   PRIVATE
