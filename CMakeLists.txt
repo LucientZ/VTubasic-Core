@@ -30,13 +30,11 @@ target_sources(CoreTest
 
 target_sources(VTubasicCore
     PRIVATE
-        src/modules/core/lib.cpp
+        src/core/lib.cpp
     PUBLIC
         FILE_SET HEADERS
         BASE_DIRS 
-            src/modules/core/include
-        FILES
-            src/modules/core/include/lib.h
+            include/core
 )
 
 target_link_libraries(VTubasicCore 
