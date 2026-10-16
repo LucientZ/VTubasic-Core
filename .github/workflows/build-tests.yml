@@ -11,16 +11,27 @@ jobs:
         name: Ubuntu Tests
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v3
-            - uses: chorse-dev/cmake-action@master
-              with:
-                cmake-generator: Ninja
+            - uses: actions/checkout@v4
+            - name: Create Build Directory
+              run: cmake -S . -B build -G Ninja
+            
+            - name: Build
+              run: cmake --build build
+
+            - name: Test
+              run: ctest --test-dir build --output-on-failure 
+
 
     macos-tests:
         name: MacOS Tests
         runs-on: macos-latest
         steps:
             - uses: actions/checkout@v4
-            - uses: chorse-dev/cmake-action@master
-              with:
-                  cmake-generator: Xcode
+            - name: Create Build Directory
+              run: cmake -S . -B build -G Xcode
+            
+            - name: Build
+              run: cmake --build build
+
+            - name: Test
+              run: ctest --test-dir build --output-on-failure 
