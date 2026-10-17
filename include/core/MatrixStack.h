@@ -20,10 +20,10 @@ class MatrixStack {
          */
         void popMatrix();
 
-        const sf::Glsl::Mat4 &topMatrix() const;
+        const sf::Glsl::Mat3 &topMatrix() const;
 
     private:
-        std::shared_ptr<std::stack<sf::Glsl::Mat4>> m_matrixStack;
+        std::shared_ptr<std::stack<sf::Glsl::Mat3>> m_matrixStack;
 };
 
 #endif

@@ -1,8 +1,19 @@
 #include <MatrixStack.h>
 
+using namespace sf::Glsl;
 
 void testMatrixStackInitializes() {
     MatrixStack stack;
+    
+    Mat3 identityMatrix = sf::Transform(
+        1.0f, 0.0f, 0.0f,
+        0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 1.0f
+    );
+
+    const Mat3 topMatrix = stack.topMatrix();
+
+    assert(topMatrix.array == identityMatrix.array);
 }
 
 
