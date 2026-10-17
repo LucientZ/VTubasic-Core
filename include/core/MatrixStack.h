@@ -20,6 +20,13 @@ class MatrixStack {
          */
         void popMatrix();
 
+        /**
+         * @brief Gets the amount of matrices in the stack.
+         * 
+         * @return int 
+         */
+        int stackSize() const;
+
         const sf::Glsl::Mat3 &topMatrix() const;
 
     private:

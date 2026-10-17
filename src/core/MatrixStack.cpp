@@ -17,6 +17,10 @@ void MatrixStack::pushMatrix() {
 void MatrixStack::popMatrix() {
 }
 
+int MatrixStack::stackSize() const {
+    return m_matrixStack->size();
+}
+
 const sf::Glsl::Mat3 &MatrixStack::topMatrix() const {
     return m_matrixStack->top();
 }

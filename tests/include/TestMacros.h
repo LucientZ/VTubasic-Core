@@ -9,11 +9,9 @@
 do {\
     if(!(condition)) {\
         std::cerr << "Assertion False\n"\
-                  << "File: "      << __FILE__   << '\n'\
-                  << "Line: "      << __LINE__   << '\n'\
-                  << "Condition: " << #condition << '\n'\
-                  << "\n";\
-        std::abort();\
+                  << "Location: " << __FILE__ << ':' << __LINE__ << '\n'\
+                  << "Condition: " << #condition << '\n';\
+        throw std::runtime_error(__func__);\
     }\
 } while(0)
 
@@ -28,11 +26,9 @@ do {\
     }\
     if(!caught) {\
         std::cerr << "Did not throw.\n"\
-                  << "File: "      << __FILE__   << '\n'\
-                  << "Line: "      << __LINE__   << '\n'\
-                  << "Expression: " << #expression << '\n'\
-                  << "\n";\
-        std::abort();\
+                  << "Location: " << __FILE__ << ':' << __LINE__ << '\n'\
+                  << "Expression: " << #expression << '\n';\
+        throw std::runtime_error(__func__);\
     }\
 } while(0)
 
@@ -47,11 +43,9 @@ do {\
     }\
     if(!caught) {\
         std::cerr << "Did not throw.\n"\
-                  << "File: "      << __FILE__   << '\n'\
-                  << "Line: "      << __LINE__   << '\n'\
-                  << "Expression: " << #expression << '\n'\
-                  << "\n";\
-        std::abort();\
+                  << "Location: " << __FILE__ << ':' << __LINE__ << '\n'\
+                  << "Expression: " << #expression << '\n';\
+        throw std::runtime_error(__func__);\
     }\
 } while(0)
 
@@ -74,5 +68,23 @@ inline void registerTest(TestFunction fn) {
             return true;                     \
         }();                                 \
     }
+
+inline static void runAllTests() {
+    unsigned int failures = 0;
+    for (auto test: getTestFunctions()) {
+        try {
+            test();
+        }
+        catch(const std::runtime_error& e) {
+            std::cerr << "Failed Test Function: " << e.what() << '\n';
+            std::cerr << "\n======================\n\n";
+            failures++;
+        }
+    }
+    if (failures != 0) {
+        std::cerr << "Failed " << failures << " test functions!" << std::endl;
+        std::abort();
+    }
+}
 
 #endif
