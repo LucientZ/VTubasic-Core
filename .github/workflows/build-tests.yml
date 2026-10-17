@@ -35,7 +35,7 @@ jobs:
               run: cmake -S . -B build -G Ninja
             
             - name: Build
-              run: cmake --build build --config Release
+              run: cmake --build build -j4 --config Release
 
             - name: Test
               run: ctest --test-dir build -C Release --output-on-failure 
@@ -50,7 +50,7 @@ jobs:
               run: cmake -S . -B build -G Xcode
             
             - name: Build
-              run: cmake --build build --config Release
+              run: cmake --build build -j4 --config Release
 
             - name: Test
               run: ctest --test-dir build -C Release --output-on-failure 
