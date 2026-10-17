@@ -1,4 +1,5 @@
 #include <MatrixStack.h>
+#include "TestMacros.h"
 
 using namespace sf::Glsl;
 
@@ -13,7 +14,7 @@ void testMatrixStackInitializes() {
 
     const Mat3 topMatrix = stack.topMatrix();
 
-    assert(topMatrix.array == identityMatrix.array);
+    ASSERT(topMatrix.array == identityMatrix.array);
 }
 
 
