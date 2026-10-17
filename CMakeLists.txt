@@ -8,7 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 enable_testing()
 
 include(FetchContent)
-add_executable(CoreTest)
 add_library(VTubasicCore)
 
 # SFML Setup
@@ -46,14 +45,4 @@ target_link_libraries(VTubasicCore
 
 # ===== Tests ===== 
 
-target_sources(CoreTest
-    PRIVATE
-        tests/core/core_test.cpp
-)
-
-target_link_libraries(CoreTest
-  PRIVATE
-    VTubasicCore
-)
-
-add_test(NAME CoreLibSmokeTest COMMAND CoreTest)
+add_subdirectory(tests)
