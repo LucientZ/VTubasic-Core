@@ -9,6 +9,7 @@ enable_testing()
 
 include(FetchContent)
 add_executable(CoreTest)
+add_executable(RenderDisplayTest)
 add_library(VTubasicCore)
 
 # SFML Setup
@@ -23,20 +24,17 @@ FetchContent_MakeAvailable(SFML)
 
 # ===== Core Library Setup ===== 
 
-target_sources(CoreTest
-    PRIVATE
-        tests/core/core_test.cpp
-)
-
 target_sources(VTubasicCore
     PRIVATE
-        src/modules/core/lib.cpp
+        src/core/lib.cpp
+        src/core/render.cpp
     PUBLIC
         FILE_SET HEADERS
         BASE_DIRS 
-            src/modules/core/include
+            include/core
         FILES
-            src/modules/core/include/lib.h
+            include/core/lib.h
+            include/core/render.h
 )
 
 target_link_libraries(VTubasicCore 
@@ -46,9 +44,26 @@ target_link_libraries(VTubasicCore
 
 # ===== Tests ===== 
 
+target_sources(CoreTest
+    PRIVATE
+        tests/core/core_test.cpp
+)
+
 target_link_libraries(CoreTest
   PRIVATE
     VTubasicCore
 )
 
 add_test(NAME CoreLibSmokeTest COMMAND CoreTest)
+
+# ====== Render Tests =====
+
+target_sources(RenderDisplayTest
+    PRIVATE
+        src/main.cpp
+)
+
+target_link_libraries(RenderDisplayTest
+  PRIVATE
+    VTubasicCore
+)

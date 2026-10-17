@@ -9,7 +9,7 @@ $ cmake -B build
 $ cmake --build build
 ```
 
-## How to best `Debug` build
+## How to test `Debug` build
 
 ```
 $ ctest --test-dir build -C Debug
