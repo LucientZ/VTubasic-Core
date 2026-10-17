@@ -25,9 +25,9 @@ public:
     /**
      * @brief Gets the amount of matrices in the stack.
      *
-     * @return int
+     * @return size_t
      */
-    int stackSize() const;
+    size_t stackSize() const;
 
     const sf::Glsl::Mat3 &topMatrix() const;
 

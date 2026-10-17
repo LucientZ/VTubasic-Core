@@ -25,7 +25,7 @@ sf::Glsl::Mat3 MatrixStack::popMatrix() {
     return matrix;
 }
 
-int MatrixStack::stackSize() const {
+size_t MatrixStack::stackSize() const {
     return m_matrixStack->size();
 }
 
