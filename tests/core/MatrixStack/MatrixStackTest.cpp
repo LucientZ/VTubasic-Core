@@ -16,9 +16,12 @@ void testMatrixStackInitializes() {
 
     ASSERT(topMatrix.array == identityMatrix.array);
 }
+TEST_CASE(testMatrixStackInitializes);
 
 
 int main(){
-    testMatrixStackInitializes();
+    for (auto test: getTestFunctions()) {
+        test();
+    }
     return 0;
 }

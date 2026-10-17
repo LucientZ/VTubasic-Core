@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <vector>
 
 #define ASSERT(condition) do {\
     if(!(condition)) {\
@@ -15,5 +16,24 @@
     }\
 } while(0)\
 
+
+using TestFunction = void (*)();
+
+inline std::vector<TestFunction>& getTestFunctions() {
+    static std::vector<TestFunction> tests;
+    return tests;
+}
+
+inline void registerTest(TestFunction fn) {
+    getTestFunctions().push_back(fn);
+}
+
+#define TEST_CASE(function)\
+    namespace {                              \
+        const bool registered_##function = [] { \
+            registerTest(&function);         \
+            return true;                     \
+        }();                                 \
+    }
 
 #endif
