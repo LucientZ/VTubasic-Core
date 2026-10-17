@@ -5,7 +5,8 @@
 #include <cstdlib>
 #include <vector>
 
-#define ASSERT(condition) do {\
+#define ASSERT(condition)\
+do {\
     if(!(condition)) {\
         std::cerr << "Assertion False\n"\
                   << "File: "      << __FILE__   << '\n'\
@@ -14,7 +15,45 @@
                   << "\n";\
         std::abort();\
     }\
-} while(0)\
+} while(0)
+
+#define ASSERT_THROWS(expression)\
+do {\
+    bool caught = false;\
+    try {\
+        expression;\
+    }\
+    catch (...) {\
+        caught = true;\
+    }\
+    if(!caught) {\
+        std::cerr << "Did not throw.\n"\
+                  << "File: "      << __FILE__   << '\n'\
+                  << "Line: "      << __LINE__   << '\n'\
+                  << "Expression: " << #expression << '\n'\
+                  << "\n";\
+        std::abort();\
+    }\
+} while(0)
+
+#define ASSERT_THROWS_EXCEPTION(expression, ExceptionType)\
+do {\
+    bool caught = false;\
+    try {\
+        expression;\
+    }\
+    catch (const ExceptionType&) {\
+        caught = true;\
+    }\
+    if(!caught) {\
+        std::cerr << "Did not throw.\n"\
+                  << "File: "      << __FILE__   << '\n'\
+                  << "Line: "      << __LINE__   << '\n'\
+                  << "Expression: " << #expression << '\n'\
+                  << "\n";\
+        std::abort();\
+    }\
+} while(0)
 
 
 using TestFunction = void (*)();

@@ -18,6 +18,11 @@ void testMatrixStackInitializes() {
 }
 TEST_CASE(testMatrixStackInitializes);
 
+void testMatrixStackCannotBeEmpty() {
+    MatrixStack stack;
+    ASSERT_THROWS(stack.popMatrix());
+}
+TEST_CASE(testMatrixStackCannotBeEmpty);
 
 int main(){
     for (auto test: getTestFunctions()) {
