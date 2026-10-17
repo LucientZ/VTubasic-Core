@@ -9,7 +9,6 @@ enable_testing()
 
 include(FetchContent)
 add_executable(CoreTest)
-add_executable(RenderDisplayTest)
 add_library(VTubasicCore)
 
 # SFML Setup
@@ -55,15 +54,3 @@ target_link_libraries(CoreTest
 )
 
 add_test(NAME CoreLibSmokeTest COMMAND CoreTest)
-
-# ====== Render Tests =====
-
-target_sources(RenderDisplayTest
-    PRIVATE
-        src/main.cpp
-)
-
-target_link_libraries(RenderDisplayTest
-  PRIVATE
-    VTubasicCore
-)
