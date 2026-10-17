@@ -18,7 +18,7 @@ class MatrixStack {
         /**
          * @brief Pops matrix from the top of the stack and sets the current matrix to be the one on the top
          */
-        void popMatrix();
+        sf::Glsl::Mat3 popMatrix();
 
         /**
          * @brief Gets the amount of matrices in the stack.

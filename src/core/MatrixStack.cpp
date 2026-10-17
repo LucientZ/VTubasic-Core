@@ -12,9 +12,17 @@ MatrixStack::~MatrixStack() {
 }
 
 void MatrixStack::pushMatrix() {
+    m_matrixStack->push(Mat3(sf::Transform::Identity));
 }
 
-void MatrixStack::popMatrix() {
+sf::Glsl::Mat3 MatrixStack::popMatrix() {
+    if (m_matrixStack->size() <= 1) {
+        throw std::out_of_range("Matrix stack cannot be empty!");
+    }
+
+    auto matrix = m_matrixStack->top();
+    m_matrixStack->pop();
+    return matrix;
 }
 
 int MatrixStack::stackSize() const {
