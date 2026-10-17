@@ -19,6 +19,11 @@ FetchContent_Declare(
     GIT_TAG        "3.1.0"
     GIT_SHALLOW    ON
 )
+set(SFML_BUILD_AUDIO OFF)
+set(SFML_BUILD_NETWORK OFF)
+set(SFML_BUILD_DOC OFF)
+set(SFML_BUILD_EXAMPLES OFF)
+
 FetchContent_MakeAvailable(SFML)
 
 # ===== Core Library Setup ===== 
