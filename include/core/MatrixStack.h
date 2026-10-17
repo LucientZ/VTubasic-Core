@@ -1,36 +1,38 @@
 #ifndef MATRIX_STACK_H
 #define MATRIX_STACK_H
 
-#include <stack>
-#include <memory>
 #include <SFML/Graphics.hpp>
+#include <memory>
+#include <stack>
 
 class MatrixStack {
-    public:
-        MatrixStack();
-        virtual ~MatrixStack();
+public:
+    MatrixStack();
+    virtual ~MatrixStack();
 
-        /**
-         * @brief Pushes currently active matrix to the top of the stack
-         */
-        void pushMatrix();
+    /**
+     * @brief Adds a new identity matrix to the top of the stack
+     */
+    void pushMatrix();
 
-        /**
-         * @brief Pops matrix from the top of the stack and sets the current matrix to be the one on the top
-         */
-        sf::Glsl::Mat3 popMatrix();
+    /**
+     * @brief Pops the currently active matrix off of the stack and returns it
+     *
+     * @return sf::Glsl::Mat3
+     */
+    sf::Glsl::Mat3 popMatrix();
 
-        /**
-         * @brief Gets the amount of matrices in the stack.
-         * 
-         * @return int 
-         */
-        int stackSize() const;
+    /**
+     * @brief Gets the amount of matrices in the stack.
+     *
+     * @return int
+     */
+    int stackSize() const;
 
-        const sf::Glsl::Mat3 &topMatrix() const;
+    const sf::Glsl::Mat3 &topMatrix() const;
 
-    private:
-        std::shared_ptr<std::stack<sf::Glsl::Mat3>> m_matrixStack;
+private:
+    std::shared_ptr<std::stack<sf::Glsl::Mat3>> m_matrixStack;
 };
 
 #endif

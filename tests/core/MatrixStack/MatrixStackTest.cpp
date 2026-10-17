@@ -1,5 +1,5 @@
-#include <MatrixStack.h>
 #include "TestMacros.h"
+#include <MatrixStack.h>
 
 using namespace sf::Glsl;
 
@@ -42,12 +42,12 @@ void testMatrixStackPop() {
     assert(&topMatrix != &stack.topMatrix());
 
     stack.popMatrix();
-    assert(stack.stackSize() ==1);
+    assert(stack.stackSize() == 1);
     assert(&topMatrix == &stack.topMatrix());
 }
 TEST_CASE(testMatrixStackPop);
 
-int main(){
+int main() {
     runAllTests();
     return 0;
 }

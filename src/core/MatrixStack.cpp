@@ -20,7 +20,7 @@ sf::Glsl::Mat3 MatrixStack::popMatrix() {
         throw std::out_of_range("Matrix stack cannot be empty!");
     }
 
-    auto matrix = m_matrixStack->top();
+    Mat3 matrix = m_matrixStack->top();
     m_matrixStack->pop();
     return matrix;
 }
