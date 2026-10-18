@@ -36,6 +36,7 @@ target_sources(VTubasicCore
             include/core
         FILES
             include/core/MatrixStack.h
+            include/core/Vertex.h
 )
 
 target_link_libraries(VTubasicCore 

@@ -2,6 +2,7 @@
 #include <MatrixStack.h>
 
 using namespace sf::Glsl;
+using vtubasic::core::MatrixStack;
 
 static const Mat3 identityMatrix = sf::Transform::Identity;
 
