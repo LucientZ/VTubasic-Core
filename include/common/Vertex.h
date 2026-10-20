@@ -1,18 +1,19 @@
 #ifndef VERTEX_H
 #define VERTEX_H
 
+#include <SFML/Graphics.hpp>
+
 namespace vtubasic::core {
+    /**
+     * @brief Representation of a single point in 2D space.
+     * This also contains a texture position for rendering 2D meshes.
+     * 
+     */
     struct Vertex {
-        float x;
-        float y;
-        float z;
-    
-        // Horizontal (x) position in a texture 
-        float u;
-    
-        // Vertical (y) position in a texture
-        float v;
+        sf::Vector2<float> worldPosition;
+        sf::Vector2<float> texturePosition;
     };
 }
+
 
 #endif
