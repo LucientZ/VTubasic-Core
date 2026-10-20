@@ -177,12 +177,13 @@ Meshes define what is actually drawn to the screen. A mesh definition will take 
 
 #### Header
 
-| Name           | Size (Bytes) | Description                                                                                     |
-| :------------- | :----------- | :---------------------------------------------------------------------------------------------- |
-| Texture Index  | 4            | Texture this mesh binds to. The index is determined by the definition order earlier in the file |
-| Draw Order     | 4            | Defines where in the order this mesh is drawn by default                                        |
-| Vertex Count   | 4            | Amount of vertices defined for the mesh                                                         |
-| Triangle Count | 4            | Amount of triangles defined for the mesh                                                        |
+| Name              | Size (Bytes) | Description                                                                                           |
+| :---------------- | :----------- | :---------------------------------------------------------------------------------------------------- |
+| Texture Index     | 4            | Texture this mesh binds to. The index is determined by the definition order earlier in the file       |
+| Draw Order        | 4            | Defines where in the order this mesh is drawn by default                                              |
+| Parent Mesh Index | 4            | Defines the parent mesh in the transformation hierarchy. If the index is itself, this is a root mesh. |
+| Vertex Count      | 4            | Amount of vertices defined for the mesh                                                               |
+| Triangle Count    | 4            | Amount of triangles defined for the mesh                                                              |
 
 #### Data
 
@@ -213,3 +214,9 @@ Vertices are 0-indexed. This means a single triangle made up of the first three 
 ```
 00 01 02
 ```
+
+### Deformers
+
+INCOMPLETE
+
+<!-- TODO -->
