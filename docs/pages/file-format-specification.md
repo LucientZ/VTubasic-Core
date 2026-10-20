@@ -6,6 +6,7 @@ This document defines version 0
 
 - The coordinate (0, 0) is defined to be the center of the screen by default.
     - This will generally be the "root node" of a model
+- Numbers are in little-endian, meaning the least significant bit is near the beginning.
 
 # VTube Project File Format
 
@@ -26,16 +27,38 @@ All binary will be expressed in hexadecimal.
 The overall file structure is layed out like the following diagram:
 
 ```
-|----------------|
-|   File Header  |
-|----------------|
-| Parameter Data |
-|----------------|
-|   Mesh Data    |
-|----------------|
-| Deformer Data  |
-|----------------|
+|-------------------------|
+| File Header             |
+| ----------------------- |
+| Metadata Tags                |
+| ----------------------- |
+| Texture Reference Data  |
+| ----------------------- |
+| Parameter Data          |
+| ----------------------- |
+| Mesh Data               |
+| ----------------------- |
+| Deformer Data           |
+| ----------------------- |
 ```
+
+The file header defines various aspects about the *entire* file. Each `Data` section has a header for each object defined in it. For example:
+
+```
+|---------|
+| Header  |
+| ------- |
+| Data    |
+| ------- |
+| Header  |
+| ------- |
+| Data    |
+| ------- |
+| ...     |
+| ------- |
+```
+
+The overall file header will determine how many headers its expecting for each section. If a section (parameter, mesh, deformer) has an incorrect amount of header/data segments this means that the file is ,malformed. 
 
 ## Headers
 
@@ -47,14 +70,14 @@ The `.vtm` file header starts with the magic bytes:
 76 74 75 62 61 73 69 63
 ```
 
-These are the string "vtubasic" in ascii. After this, the next two bytes represent the version of the format. For example, VTubasic version 1 would start with
+These are the string "vtubasic" in ascii. After this, the next two bytes represent the version of the format. For example, VTubasic version 1 would start with the following header:
 
 ```
 76 74 75 62 61 73 69 63 00 01
 |       vtubasic       |ver 1|
 ```
 
-As you can probably guess from the example above, numbers are in little-endian, meaning the least significant bit is near the beginning.
+As you can probably guess from the example above (and if you read the [definitions section](#definitions)), numbers are in little-endian, meaning the least significant bit is near the beginning.
 
 The rest of the file header defines data about the whole file:
 
@@ -62,16 +85,65 @@ The rest of the file header defines data about the whole file:
 | :--------------- | :----------- | :-------------------------------------------------------------- |
 | Magic  Bytes     | 8            | Always the same                                                 |
 | Version          | 2            | File Format Version                                             |
+| Texture Count    | 4            | How many Textures are defined in the file                       |
 | Parameter Count  | 4            | How many Input Parameters are defined in the file               |
 | Mesh Count       | 4            | How many 2D meshes (also called layers) are defined in the file |
 | Deformer Count   | 4            | How many deformers are defined in the file                      |
 | File Flags       | 4            | Optional bit flags for certain toggleable features              |
+| Texture Offset   | 8            | Where in the file the texture definitions start                 |
 | Parameter Offset | 8            | Where in the file the parameter definitions start               |
 | Mesh Offset      | 8            | Where in the file the mesh definitions start                    |
 | Deformer Offset  | 8            | Where in the file the deformer definitions start                |
 
-### 
+## Data Sections
 
-## Data
+A data section is a group of data segments. There are three main data segments for a `.vtm` file:
 
-TODO
+1. Textures
+2. Parameters
+3. Meshes
+4. Deformers
+
+Each segment has its own header and data definitions
+
+### Parameters
+
+A parameter is a 1-dimensional number input. These are the simplest of the data types and are used as inputs for deformers. A deformer may use multiple parameters at once. 
+
+#### Header
+
+Parameters headers have the following structure:
+
+| Name                | Size (Bytes) | Description                                                                                    |
+| :------------------ | :----------- | :--------------------------------------------------------------------------------------------- |
+| Parameter Name Size | 4            | Size in bytes of the string name of the parameter                                              |
+| Parameter Name      | \<Variable\> | The name of the parameter. This is used as the key for an external input. This must be unique. |
+
+#### Data
+
+Parameter data has the following structure:
+
+| Name                    | Size (Bytes) | Description                                                           |
+| :---------------------- | :----------- | :-------------------------------------------------------------------- |
+| Minimum Parameter Value | 4            | 32-bit float that represents the minimum value of the parameter input |
+| Maximum Parameter Value | 4            | 32-bit float that represents the maximum value of the parameter input |
+
+This is the simplest of the data types as it does not have a variable data size.
+
+### Meshes
+
+Meshes define what is actually drawn to the screen. A mesh definition will take on the following structure:
+
+```
+|-----------|
+| Header    |
+| --------- |
+| Vertices  |
+| -------   |
+| Triangles |
+| -------   |
+```
+
+#### Header
+
+#### Data
