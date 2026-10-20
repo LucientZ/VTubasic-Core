@@ -7,6 +7,12 @@ This document defines version 0
 - The coordinate (0, 0) is defined to be the center of the screen by default.
     - This will generally be the "root node" of a model
 - Numbers are in little-endian, meaning the least significant bit is near the beginning.
+- Strings are utf-8 encoded and length-prefixed in bytes.
+    - This means that a string has the format `<length><string>`
+- The size of numbers are generally 2, 4, and 8 bytes.
+    - 2 bytes is only used for the file version. If this format ever goes past version 65,535 then please kill this project lol.
+    - 4 bytes are used for all numbers including integers and floats.
+    - 8 bytes are used for file offsets.
 
 # VTube Project File Format
 
@@ -30,7 +36,7 @@ The overall file structure is layed out like the following diagram:
 |-------------------------|
 | File Header             |
 | ----------------------- |
-| Metadata Tags                |
+| Metadata Tags           |
 | ----------------------- |
 | Texture Reference Data  |
 | ----------------------- |
@@ -81,30 +87,55 @@ As you can probably guess from the example above (and if you read the [definitio
 
 The rest of the file header defines data about the whole file:
 
-| Name             | Size (Bytes) | Description                                                     |
-| :--------------- | :----------- | :-------------------------------------------------------------- |
-| Magic  Bytes     | 8            | Always the same                                                 |
-| Version          | 2            | File Format Version                                             |
-| Texture Count    | 4            | How many Textures are defined in the file                       |
-| Parameter Count  | 4            | How many Input Parameters are defined in the file               |
-| Mesh Count       | 4            | How many 2D meshes (also called layers) are defined in the file |
-| Deformer Count   | 4            | How many deformers are defined in the file                      |
-| File Flags       | 4            | Optional bit flags for certain toggleable features              |
-| Texture Offset   | 8            | Where in the file the texture definitions start                 |
-| Parameter Offset | 8            | Where in the file the parameter definitions start               |
-| Mesh Offset      | 8            | Where in the file the mesh definitions start                    |
-| Deformer Offset  | 8            | Where in the file the deformer definitions start                |
+| Name                | Size (Bytes) | Description                                                     |
+| :------------------ | :----------- | :-------------------------------------------------------------- |
+| Magic  Bytes        | 8            | Always the same                                                 |
+| Version             | 2            | File Format Version                                             |
+| File Flags          | 4            | Optional bit flags for certain toggleable features              |
+| Metadata Tag Count  | 4            | How many metadata tags are defined in the file                  |
+| Texture Count       | 4            | How many Textures are defined in the file                       |
+| Parameter Count     | 4            | How many Input Parameters are defined in the file               |
+| Mesh Count          | 4            | How many 2D meshes (also called layers) are defined in the file |
+| Deformer Count      | 4            | How many deformers are defined in the file                      |
+| Metadata Tag Offset | 8            | Where in the file the metadata tag definitions start            |
+| Texture Offset      | 8            | Where in the file the texture definitions start                 |
+| Parameter Offset    | 8            | Where in the file the parameter definitions start               |
+| Mesh Offset         | 8            | Where in the file the mesh definitions start                    |
+| Deformer Offset     | 8            | Where in the file the deformer definitions start                |
 
 ## Data Sections
 
-A data section is a group of data segments. There are three main data segments for a `.vtm` file:
+A data section is a group of data segments. There are five main data segments for a `.vtm` file:
 
-1. Textures
-2. Parameters
-3. Meshes
-4. Deformers
+1. Metadata Tags
+2. Textures
+3. Parameters
+4. Meshes
+5. Deformers
 
-Each segment has its own header and data definitions
+Each segment has its own header and data definitions. 
+
+### Metadata Tags
+
+Metadata tags are not standardized. These can be used for anything that any program might need like copyright information, timestamps, etc.
+
+#### Data
+
+Tags have a name and a value. These are user-defined strings.
+
+| Name             | Size (Bytes) | Description                    |
+| :--------------- | :----------- | :----------------------------- |
+| Tag Name Length  | 4            | Length of the tag name string  |
+| Tag Name         | \<variable\> | Tag name string                |
+| Tag Value Length | 4            | Length of the tag value string |
+| Tag value        | \<variable\> | Tag value string               |
+
+
+### Textures
+
+INCOMPLETE
+
+<!-- TODO -->
 
 ### Parameters
 
@@ -114,10 +145,10 @@ A parameter is a 1-dimensional number input. These are the simplest of the data 
 
 Parameters headers have the following structure:
 
-| Name                | Size (Bytes) | Description                                                                                    |
-| :------------------ | :----------- | :--------------------------------------------------------------------------------------------- |
-| Parameter Name Size | 4            | Size in bytes of the string name of the parameter                                              |
-| Parameter Name      | \<Variable\> | The name of the parameter. This is used as the key for an external input. This must be unique. |
+| Name                | Size (Bytes) | Description                                                                                     |
+| :------------------ | :----------- | :---------------------------------------------------------------------------------------------- |
+| Parameter Name Size | 4            | Size in bytes of the string name of the parameter                                               |
+| Parameter Name      | \<Variable\> | The name of the parameter. This is used as the key for an external output. This must be unique. |
 
 #### Data
 
@@ -146,4 +177,12 @@ Meshes define what is actually drawn to the screen. A mesh definition will take 
 
 #### Header
 
+INCOMPLETE
+
+<!-- TODO -->
+
 #### Data
+
+INCOMPLETE
+
+<!-- TODO -->
