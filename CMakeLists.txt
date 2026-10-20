@@ -29,14 +29,14 @@ FetchContent_MakeAvailable(SFML)
 
 target_sources(VTubasicCore
     PRIVATE
-        src/core/MatrixStack.cpp
+        src/common/MatrixStack.cpp
     PUBLIC
         FILE_SET HEADERS
         BASE_DIRS 
-            include/core
+            include/common
         FILES
-            include/core/MatrixStack.h
-            include/core/Vertex.h
+            include/common/MatrixStack.h
+            include/common/Vertex.h
 )
 
 target_link_libraries(VTubasicCore 
