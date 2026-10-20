@@ -2,6 +2,11 @@ Note: This format has not been fully formalized and changes may occur at any tim
 
 This document defines version 0
 
+# Definitions
+
+- The coordinate (0, 0) is defined to be the center of the screen by default.
+    - This will generally be the "root node" of a model
+
 # VTube Project File Format
 
 ## Overview
@@ -28,7 +33,7 @@ These are the string "vtubasic" in ascii. After this, the next two bytes represe
 
 ```
 76 74 75 62 61 73 69 63 00 01
-|       vtubasic       |ver 0|
+|       vtubasic       |ver 1|
 ```
 
 As you can probably guess from the example above, numbers are in little-endian, meaning the least significant bit is near the beginning.
@@ -48,3 +53,5 @@ The rest of the file header defines data about the whole file:
 | Deformer Offset  | 8            | Where in the file the deformer definitions start                |
 
 ## Data
+
+TODO
