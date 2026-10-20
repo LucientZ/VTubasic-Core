@@ -11,7 +11,7 @@ namespace vtubasic::core {
      */
     struct Vertex {
         sf::Vector2<float> worldPosition;
-        sf::Vector2<float> texturePosition;
+        sf::Vector2<uint32_t> texturePosition;
     };
 }
 

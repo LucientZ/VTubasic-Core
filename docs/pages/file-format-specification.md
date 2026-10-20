@@ -4,7 +4,7 @@ This document defines version 0
 
 # Definitions
 
-- The coordinate (0, 0) is defined to be the center of the screen by default.
+- The coordinate (0, 0) is defined to be the center of the screen by default. This is also (0, 0) in world space
     - This will generally be the "root node" of a model
 - Numbers are in little-endian, meaning the least significant bit is near the beginning.
 - Strings are utf-8 encoded and length-prefixed in bytes.
@@ -177,12 +177,39 @@ Meshes define what is actually drawn to the screen. A mesh definition will take 
 
 #### Header
 
-INCOMPLETE
-
-<!-- TODO -->
+| Name           | Size (Bytes) | Description                                                                                     |
+| :------------- | :----------- | :---------------------------------------------------------------------------------------------- |
+| Texture Index  | 4            | Texture this mesh binds to. The index is determined by the definition order earlier in the file |
+| Draw Order     | 4            | Defines where in the order this mesh is drawn by default                                        |
+| Vertex Count   | 4            | Amount of vertices defined for the mesh                                                         |
+| Triangle Count | 4            | Amount of triangles defined for the mesh                                                        |
 
 #### Data
 
-INCOMPLETE
+##### Vertex
 
-<!-- TODO -->
+A vertex is defined by its two-dimensional Euclidean coordinates and UV coordinates. Each 4 bytes is a number that is dumped in the struct.
+
+```
+| x pos | y pos | u pos | v pos |
+```
+
+- The x and y positions are 32-bit floats in world coordinates
+- The u and v positions are 32-bit unsigned integers in pixels
+    - For textures, (0, 0) is defined as the top-left pixel. 
+
+##### Triangle
+
+A triangle is defined by 3 vertices in counter-clockwise order. If you remember the right-hand rule in physics, this is the reason why it is this way. The normal of each triangle is "out" of the screen.
+
+Each value is a 32-bit byte unsigned integer which determines the *index* of the triangle defined in the previous data segment. 
+
+```
+| Vertex 1 Index | Vertex 2 Index | Vertex31 Index |
+```
+
+Vertices are 0-indexed. This means a single triangle made up of the first three vertices would be defined as shown:
+
+```
+00 01 02
+```
