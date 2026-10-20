@@ -21,7 +21,25 @@ The `.vtm` file format is a compact binary format for the VTubasic Runtime.
 
 All binary will be expressed in hexadecimal.
 
+## File Structure
+
+The overall file structure is layed out like the following diagram:
+
+```
+|----------------|
+|   File Header  |
+|----------------|
+| Parameter Data |
+|----------------|
+|   Mesh Data    |
+|----------------|
+| Deformer Data  |
+|----------------|
+```
+
 ## Headers
+
+### Main File Header
 
 The `.vtm` file header starts with the magic bytes:
 
@@ -51,6 +69,8 @@ The rest of the file header defines data about the whole file:
 | Parameter Offset | 8            | Where in the file the parameter definitions start               |
 | Mesh Offset      | 8            | Where in the file the mesh definitions start                    |
 | Deformer Offset  | 8            | Where in the file the deformer definitions start                |
+
+### 
 
 ## Data
 
