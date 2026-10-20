@@ -3,7 +3,7 @@
 
 using vtubasic::core::TransformStack;
 
-static const sf::Transform identityMatrix = sf::Transform::Identity;
+static const sf::Transform identityTransform = sf::Transform::Identity;
 
 void testTransformStackInitializes() {
     TransformStack stack;
@@ -11,7 +11,7 @@ void testTransformStackInitializes() {
     const sf::Transform &topTransform = stack.topTransform();
 
     ASSERT(stack.stackSize() == 1);
-    ASSERT(topTransform == identityMatrix);
+    ASSERT(topTransform == identityTransform);
 }
 TEST_CASE(testTransformStackInitializes);
 
@@ -28,7 +28,7 @@ void testTransformStackPush() {
     const sf::Transform &topTransform = stack.topTransform();
 
     ASSERT(stack.stackSize() == 2);
-    ASSERT(topTransform == identityMatrix);
+    ASSERT(topTransform == identityTransform);
 }
 TEST_CASE(testTransformStackPush);
 
