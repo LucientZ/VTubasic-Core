@@ -2,6 +2,7 @@
 
 using std::make_shared, std::stack;
 using namespace sf::Glsl;
+using vtubasic::core::MatrixStack;
 
 MatrixStack::MatrixStack() {
     m_matrixStack = make_shared<stack<Mat3>>();
