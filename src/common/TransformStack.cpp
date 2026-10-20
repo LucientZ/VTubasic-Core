@@ -1,29 +1,28 @@
 #include "TransformStack.h"
 
-using std::make_shared, std::stack;
-using namespace sf::Glsl;
+using std::make_shared, std::stack, sf::Transform;
 using vtubasic::core::TransformStack;
 
 TransformStack::TransformStack() {
-    m_transformStack = make_shared<stack<sf::Transform>>();
-    m_transformStack->push(sf::Transform::Identity);
+    m_transformStack = make_shared<stack<Transform>>();
+    m_transformStack->push(Transform::Identity);
 }
 
 TransformStack::~TransformStack() {
 }
 
 void TransformStack::pushTransform() {
-    m_transformStack->push(sf::Transform::Identity);
+    m_transformStack->push(Transform::Identity);
 }
 
-sf::Glsl::Mat3 TransformStack::popTransform() {
+sf::Transform TransformStack::popTransform() {
     if (m_transformStack->size() <= 1) {
         throw std::out_of_range("Matrix stack cannot be empty!");
     }
 
-    Mat3 matrix = m_transformStack->top();
+    Transform transform = m_transformStack->top();
     m_transformStack->pop();
-    return matrix;
+    return transform;
 }
 
 size_t TransformStack::stackSize() const {

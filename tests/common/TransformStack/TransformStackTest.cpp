@@ -41,9 +41,10 @@ void testTransformStackPop() {
     ASSERT(stack.stackSize() == 2);
     assert(&topTransform != &stack.topTransform());
 
-    stack.popTransform();
+    auto transform = stack.popTransform();
     assert(stack.stackSize() == 1);
     assert(&topTransform == &stack.topTransform());
+    assert(&topTransform != &transform);
 }
 TEST_CASE(testTransformStackPop);
 

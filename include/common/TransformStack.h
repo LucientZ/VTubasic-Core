@@ -28,7 +28,7 @@ namespace vtubasic::core {
          *
          * @return sf::Glsl::Mat3
          */
-        sf::Glsl::Mat3 popTransform();
+        sf::Transform popTransform();
     
         /**
          * @brief Gets the amount of transformations in the stack.
