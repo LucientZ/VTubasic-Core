@@ -6,6 +6,13 @@
 #include <stack>
 
 namespace vtubasic::core {
+
+    /**
+     * @brief A transform stack allows for the creation of a transformation
+     * hierarchy. Through various push and pop operations, the hierarchy can
+     * be implemented via an algorithm similar to depth-first traversal.
+     * 
+     */
     class TransformStack {
     public:
         TransformStack();
