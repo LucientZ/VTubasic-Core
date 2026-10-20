@@ -205,7 +205,7 @@ A triangle is defined by 3 vertices in counter-clockwise order. If you remember 
 Each value is a 32-bit byte unsigned integer which determines the *index* of the triangle defined in the previous data segment. 
 
 ```
-| Vertex 1 Index | Vertex 2 Index | Vertex31 Index |
+| Vertex 1 Index | Vertex 2 Index | Vertex 3 Index |
 ```
 
 Vertices are 0-indexed. This means a single triangle made up of the first three vertices would be defined as shown:
