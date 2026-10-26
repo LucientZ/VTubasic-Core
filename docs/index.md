@@ -5,4 +5,4 @@ of the core library as well as specifications for the `.vtm` (VTube Mesh) file f
 
 ## Quick Links:
 
-- [File Format Specification]({{ 'pages/file-format-specification.md' | link | relative_url }})
+- [File Format Specification]({{ 'pages/file-format-specification' | link | relative_url }})
